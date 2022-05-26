@@ -1,6 +1,6 @@
 import cx from "classnames";
 import { uid } from 'uid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Todo from "../../components/Todo";
 import { NextPage } from "next";
@@ -8,6 +8,10 @@ import { NextPage } from "next";
 const index: NextPage<any> = () => {
     const [todoItem, setTodoItem] = useState("");
     const [items, setItems] = useState([]);
+
+    const saveTasks = () => {
+        localStorage.setItem("todos", JSON.stringify(items));
+    }
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,10 +44,17 @@ const index: NextPage<any> = () => {
         setItems(_items);
     };
 
+    useEffect(() => {
+        const _items = localStorage.getItem("todos");
+        if(_items) {
+            setItems(JSON.parse(_items));
+        }
+    }, [])
+
     return (
         <motion.section animate={{ x: [ -75, 0 ], opacity: [ 0, 0.5, 0.7, 0.9, 1 ] }} transition={{ ease: "easeIn" }}>
         <div
-        className="container flex flex-col justify-center items-center px-6 mx-auto mt-1 space-y-12 md:space-y-0 md:mt-20"
+        className="container flex flex-col justify-center items-center px-6 mx-auto mt-1 space-y-12 md:space-y-5 md:mt-20"
         >   
             <div className="flex flex-col space-y-10">
                 <h1 className="text-5xl text-bold text-center">Todo List</h1>
@@ -84,6 +95,10 @@ const index: NextPage<any> = () => {
                         )
                     })
                 }
+            </div>
+
+            <div className="mx-auto">
+                <button onClick={saveTasks} className="border border-red-500 text-red-500 px-6 p-3 hover:opacity-75">Save Tasks</button>
             </div>
         </div>
     </motion.section>
