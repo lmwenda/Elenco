@@ -49,7 +49,6 @@
     transform: rotate(-45deg) translateY(6px) translate(-6px);
 }
 
-
 .done{
     text-decoration: line-through;
     text-decoration-color: white;

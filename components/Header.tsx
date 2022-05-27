@@ -15,7 +15,7 @@ const Header = () => {
 
                 <button
                     id="menu-btn"
-                    className="block hamburger md:hidden focus:outline-none"
+                    className={showMobileNav ? "open block hamburger md:hidden focus:outline-none" : "block hamburger md:hidden focus:outline-none"}
                     onClick={() => setShowMobileNav((prev) => !prev)}
                 >
                     <span className="hamburger-top"></span>
@@ -41,6 +41,7 @@ const Header = () => {
                         <img className="md:pl-1 h-2" src="/assets/down-filled-triangular-arrow.png" />
                     </a>
 
+
                 </div>
 
                 <div className="hidden md:flex space-x-4 items-center">
@@ -48,18 +49,19 @@ const Header = () => {
                 </div>
             </div>
             
-            <div className="md:hidden">
-                <div
-                id="menu"
-                className="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
-                >
-                <Link href="/">Home</Link>
-                <Link href="/todos">Todos List</Link>
-                <a href="#">Contact us</a>
-                <a href="#">Language</a>
-                <a href="#">Login</a>
+                <div className={showMobileNav ? "flex flex-col" : "hidden"}>
+                    <div
+                    id="menu"
+                    className="absolute flex-col border border-black items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-black text-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md"
+                    >
+                        <Link href="/">Home</Link>
+                        <Link href="/todos">Todos List</Link>
+                        <a href="#">Contact us</a>
+                        <a href="#">Language</a>
+                        <a href="#">Login</a>
+                    </div>
                 </div>
-            </div>
+    
         </nav>
     );
 }
